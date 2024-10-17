@@ -135,6 +135,113 @@ public class KnapsackSolver
 }
 ```
 
+### 3. C++ реализация:
+```
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+// Определяем элемент с весом и ценностью
+struct Item {
+    string Name;
+    int Weight;
+    int Value;
+};
+
+// Функция для подсчета общего веса подмножества
+int TotalWeight(const vector<Item>& candidate) {
+    int totalWeight = 0;
+    for (const auto& item : candidate) {
+        totalWeight += item.Weight;
+    }
+    return totalWeight;
+}
+
+// Функция для подсчета общей ценности подмножества
+int TotalValue(const vector<Item>& candidate) {
+    int totalValue = 0;
+    for (const auto& item : candidate) {
+        totalValue += item.Value;
+    }
+    return totalValue;
+}
+
+// Функция для генерации всех подмножеств
+template <typename T>
+vector<vector<T>> PowerSet(const vector<T>& items) {
+    vector<vector<T>> powerSet;
+    powerSet.push_back(vector<T>());  // Добавляем пустое множество
+
+    // Проходим по каждому элементу и добавляем его в уже существующие подмножества
+    for (const auto& item : items) {
+        vector<vector<T>> newSubsets;
+
+        for (const auto& subset : powerSet) {
+            vector<T> newSubset = subset;
+            newSubset.push_back(item);
+            newSubsets.push_back(newSubset);
+        }
+
+        powerSet.insert(powerSet.end(), newSubsets.begin(), newSubsets.end());
+    }
+
+    return powerSet;
+}
+
+// Функция для нахождения наилучшего подмножества предметов для рюкзака
+vector<Item> Knapsack(const vector<Item>& items, int maxWeight) {
+    vector<Item> bestCandidate;
+    int bestValue = 0;
+
+    // Генерируем множество всех подмножеств (power set)
+    vector<vector<Item>> powerSet = PowerSet(items);
+
+    // Проходим по каждому подмножеству (candidate)
+    for (const auto& candidate : powerSet) {
+        int totalWeight = TotalWeight(candidate);
+        int totalValue = TotalValue(candidate);
+
+        // Если вес подмножества <= maxWeight и его ценность больше текущей лучшей
+        if (totalWeight <= maxWeight && totalValue > bestValue) {
+            bestValue = totalValue;
+            bestCandidate = candidate;
+        }
+    }
+
+    return bestCandidate;
+}
+
+int main() {
+    // Пример использования: набор предметов
+    vector<Item> items = {
+        {"Laptop", 3, 3500},
+        {"Camera", 1, 1000},
+        {"Headphones", 1, 500},
+        // Расширенные набор предметов
+        {"Charger", 2, 400},
+        {"Pod", 1, 150},
+        {"Mouse", 1, 300},
+        {"Phone", 2, 2000}
+    };
+
+    int maxWeight = 6;  // Максимальный вес, который может выдержать рюкзак
+
+    // Решаем задачу рюкзака
+    vector<Item> bestSolution = Knapsack(items, maxWeight);
+
+    // Выводим результат
+    cout << "Best items to pack:" << endl;
+    for (const auto& item : bestSolution) {
+        cout << item.Name << " (Weight: " << item.Weight << ", Value: " << item.Value << ")" << endl;
+    }
+
+    return 0;
+}
+```
+
+
 ### Пример выполнения:
 
 Для набора предметов:
