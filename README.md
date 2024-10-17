@@ -136,7 +136,7 @@ public class KnapsackSolver
 ```
 
 ### 3. C++ реализация:
-```
+```cpp
 #include <iostream>
 #include <vector>
 #include <string>
