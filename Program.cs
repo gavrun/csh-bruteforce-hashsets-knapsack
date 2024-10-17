@@ -90,17 +90,17 @@ class Program
         // Пример использования: набор предметов
         List<Item> items = new List<Item>
         {
-            new Item { Name = "Laptop", Weight = 3, Value = 2000 },
+            new Item { Name = "Laptop", Weight = 3, Value = 3500 },
             new Item { Name = "Camera", Weight = 1, Value = 1000 },
             new Item { Name = "Headphones", Weight = 1, Value = 500 },
             // Расширенные набор предметов
-            new Item { Name = "Charger", Weight = 2, Value = 2000 },
-            new Item { Name = "Pod", Weight = 1, Value = 1000 },
-            new Item { Name = "Mouse", Weight = 1, Value = 500 },
-            new Item { Name = "Phone", Weight = 2, Value = 500 }
+            new Item { Name = "Charger", Weight = 2, Value = 400 },
+            new Item { Name = "Pod", Weight = 1, Value = 150 },
+            new Item { Name = "Mouse", Weight = 1, Value = 300 },
+            new Item { Name = "Phone", Weight = 2, Value = 2000 }
         };
 
-        int maxWeight = 4;  // Максимальный вес, который может выдержать рюкзак
+        int maxWeight = 6;  // Максимальный вес, который может выдержать рюкзак
 
         // Решаем задачу рюкзака
         List<Item> bestSolution = Knapsack(items, maxWeight);
